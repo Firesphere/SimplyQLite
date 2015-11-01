@@ -187,8 +187,8 @@ class SimplyQLite extends SQLite3
     {
         $wherePrepare = $this->prepareColumns($where);
         $columns      = $this->setupColumns($columns);
-        $stmt         = 'SELECT '.implode(',',$columns).' FROM '.$this->table;
-        if(count($where)) {
+        $stmt         = 'SELECT ' . implode(',', $columns) . ' FROM ' . $this->table;
+        if (count($where)) {
             $stmt .= 'WHERE ' . implode(',', $wherePrepare);
         }
 
