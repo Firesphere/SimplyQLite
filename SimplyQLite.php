@@ -56,7 +56,6 @@ class SimplyQLite extends SQLite3
         $this->table = $table;
         $columns     = $this->query("PRAGMA table_info($table)");
         while ($col = $columns->fetchArray()) {
-            var_dump($col);
             $this->allowed[$col['name']] = $col['type'];
         }
         $this->keyField = $keyField;
@@ -188,9 +187,9 @@ class SimplyQLite extends SQLite3
     {
         $wherePrepare = $this->prepareColumns($where);
         $columns      = $this->setupColumns($columns);
-        $stmt         = "SELECT ".implode(',',$columns)." FROM $this->table";
+        $stmt         = 'SELECT '.implode(',',$columns).' FROM '.$this->table;
         if(count($where)) {
-            $stmt .= "WHERE " . implode(',', $wherePrepare);
+            $stmt .= 'WHERE ' . implode(',', $wherePrepare);
         }
 
         $stmt .= ($this->order) ?: '';
