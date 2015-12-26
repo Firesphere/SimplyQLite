@@ -6,7 +6,6 @@
  * Just push the required data into the function, and it works out of the box.
  * If the database doesn't exist, it'll try to create it and also create the necessary columns.
  *
- * This simplified class will always return all values! Therefor, do not make it publicly addressable!
  */
 class SimplyQLite extends SQLite3
 {
@@ -18,7 +17,7 @@ class SimplyQLite extends SQLite3
     /**
      * @var string $keyField The unique constraint field, needed for updates.
      */
-    protected $keyField;
+    protected $keyField = 'id';
 
     /**
      * @var string $separator The separator we want to use. AND or OR are available.
@@ -235,8 +234,8 @@ class SimplyQLite extends SQLite3
     {
         $column    = $this->setupColumns(array_keys($data));
         $setValues = array();
-        foreach ($data as $key => $value) {
-            if ($key !== $this->keyField && in_array($key, $this->allowed, true)) {
+        foreach ($column as $key) {
+            if ($key !== $this->keyField && array_key_exists($key, $this->allowed)) {
                 $setValues[] = $key . ' = :' . $key;
             }
         }
